@@ -8,6 +8,26 @@ public class Game {
     private static final int ENEMY_HEALTH_MAX = 200;
     private static final int ENEMY_DAMAGE_MIN = 20;
     private static final int ENEMY_DAMAGE_MAX = 50;
+    private static int damageModifier = 0;
+    private static int healthModifier = 0;
+    
+    private static int attackEnemy(int championChoice, int damageModifier) {
+        int damage = 0;
+
+        if (championChoice == 1) {
+            damage = 60 + damageModifier;
+        } else if (championChoice == 2) {
+            damage = 45 + damageModifier;
+        } else if (championChoice == 3) {
+            damage = 30 + damageModifier;
+        } else if (championChoice == 4) {
+            damage = 50 + damageModifier;
+        } else if (championChoice == 5) {
+            damage = 35 + damageModifier;
+        }
+
+        return damage;
+    }
     
 	public static void main(String[] args) {
 		
@@ -18,13 +38,14 @@ public class Game {
         Champ ch5 = new Champ("T-BAG", "Prison", 25);
 	    
 
-	    
+        attackEnemy();
+        
 	        Scanner scanner = new Scanner(System.in);
 	        Random random = new Random();
 	        
 	        System.out.println("Welcome to League of Legends - Text Edition!");
 
-	        // Prompt the player to choose a champion
+	        
 	        System.out.println("Choose a champion:");
 	        System.out.println("1."+ ch1.name);
 	        System.out.println("2."+ ch2.name);
@@ -52,11 +73,32 @@ public class Game {
 	            System.out.println("Invalid choice. Exiting the game.");
 	            return;
 	        }
+         
+	        System.out.println("Choose an item:");
+	        System.out.println("1. Increase damage");
+	        System.out.println("2. Increase health");
+	        System.out.println("3. Quit");
 
+	        int itemChoice = scanner.nextInt();
+
+	        if (itemChoice == 1) {
+	            damageModifier = 10; 
+	            System.out.println("You equipped an item that increases your damage.");
+	        } else if (itemChoice == 2) {
+	            healthModifier = 20; 
+	            System.out.println("You equipped an item that increases your health.");
+	        } else if (itemChoice == 3) {
+	            System.out.println("Thank you for playing!");
+	            return;
+	        } else {
+	            System.out.println("Invalid choice. Exiting the game.");
+	            return;
+	        } 
+	        
 	        int playerHealth = random.nextInt(PLAYER_HEALTH_MAX - PLAYER_HEALTH_MIN + 1) + PLAYER_HEALTH_MIN;
 	        int enemyHealth = random.nextInt(ENEMY_HEALTH_MAX - ENEMY_HEALTH_MIN + 1) + ENEMY_HEALTH_MIN; 
 
-	        // Game loop
+	        
 	        while (playerHealth > 0 && enemyHealth > 0) {
 	            System.out.println("Choose an action:");
 	            System.out.println("1. Attack");
@@ -110,5 +152,4 @@ public class Game {
 	        return damage;
 	    }
 }
-
-	   
+      
